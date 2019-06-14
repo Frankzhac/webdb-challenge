@@ -27,7 +27,18 @@ server.get('/projects', async (req, res) => {
   }
 });
 
-
+// list a project by id
+server.get('/projects/:id', async (req, res) => {
+  // get the projects from the database
+  try {
+    const project = await db('projects')
+      .where({ id: req.params.id })
+      .first();
+    res.status(200).json(project);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
