@@ -16,6 +16,17 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
+// list all projects
+server.get('/projects', async (req, res) => {
+  // get the projects from the database
+  try {
+    const projects = await db('projects'); // all the records from the table
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 
 
 const port = process.env.PORT || 5000;
