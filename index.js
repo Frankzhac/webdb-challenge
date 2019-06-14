@@ -58,6 +58,25 @@ server.post('/projects', (req, res) => {
     });
 });
 
+// update projects
+// PUT
+server.put('/projects/:id', (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+
+  db('projects')
+    .where({ id })
+    .update(update)
+    .then(count => {
+      res.status(200).json({ count });
+    })
+    .catch(err => {
+      res.status(200).json({
+        errorMessage: "Can't find projects by id."
+      });
+    });
+});
+
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
   console.log(`\n** API running on http://localhost:${port} **\n`)
