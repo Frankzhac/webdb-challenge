@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
 
       return knex('actions').insert([
-        {description: "Buy more vegetables", notes: "mushrooms, kale", completed: 0, project_id: 7},
-        {description: "Workouts", notes: "weight-training, cardio", completed: 0, project_id: 8},
-        {description: "Beat Ghost Recon Wildlands", notes: "beat it on Ghost mode", completed: 0, project_id: 8}
+        {description: "Buy more vegetables", notes: "mushrooms, kale", completed: 0, project_id: 5},
+        {description: "Workouts", notes: "weight-training, cardio", completed: 0, project_id: 7},
+        {description: "Beat Ghost Recon Wildlands", notes: "beat it on Ghost mode", completed: 0, project_id: 24}
       ]);
     });
 };
