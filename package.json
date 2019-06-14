@@ -4,6 +4,7 @@
     "server": "nodemon index.js"
   },
   "devDependencies": {
+    "knex-cleaner": "^1.1.4",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
