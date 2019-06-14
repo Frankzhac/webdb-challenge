@@ -22,8 +22,8 @@ server.get('/projects', async (req, res) => {
   try {
     const projects = await db('projects'); // all the records from the table
     res.status(200).json(projects);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -35,8 +35,8 @@ server.get('/projects/:id', async (req, res) => {
       .where({ id: req.params.id })
       .first();
     res.status(200).json(project);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -89,7 +89,7 @@ server.delete('/projects/:id', async (req, res) => {
     } else {
       res.status(404).json({ message: 'Records not found' });
     }
-  } catch (error) {}
+  } catch (err) {}
 });
 
 // Actions Model
@@ -99,8 +99,8 @@ server.get('/actions', async (req, res) => {
   try {
     const projects = await db('projects'); // all the records from the table
     res.status(200).json(projects);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -112,8 +112,8 @@ server.get('/projects/:id/actions', async (req, res) => {
       .where({ id: req.params.id })
       .first();
     res.status(200).json(action);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
@@ -152,6 +152,22 @@ server.put('/actions/:id', (req, res) => {
       });
     });
 });
+
+// DELETE Actions
+server.delete('/actions/:id', async (req, res) => {
+  try {
+    const count = await db('actions')
+      .where({ id: req.params.id })
+      .del();
+
+    if (count > 0) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: 'Records not found' });
+    }
+  } catch (err) {}
+});
+
 
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
