@@ -104,7 +104,36 @@ server.get('/actions', async (req, res) => {
   }
 });
 
+// get the actions from using a project_id
+server.get('/projects/:id/actions', async (req, res) => {
+  // get the cohorts from the database
+  try {
+    const action = await db('actions')
+      .where({ id: req.params.id })
+      .first();
+    res.status(200).json(action);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
+// create actions
+server.post('/actions', (req, res) => {
+  const newAction = req.body;
+
+  db('actions')
+    .insert(newAction)
+    .then(ids => {
+      res.status(201).json(ids);
+    })
+    .catch(err => {
+      // console.log(err);
+      res.status(500).json({
+        success: false,
+        error: "There was an error while saving the action to the database",
+      });
+    });
+});
 
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
