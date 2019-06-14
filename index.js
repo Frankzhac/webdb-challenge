@@ -77,6 +77,21 @@ server.put('/projects/:id', (req, res) => {
     });
 });
 
+// remove projects
+server.delete('/projects/:id', async (req, res) => {
+  try {
+    const count = await db('projects')
+      .where({ id: req.params.id })
+      .del();
+
+    if (count > 0) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ message: 'Records not found' });
+    }
+  } catch (error) {}
+});
+
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
   console.log(`\n** API running on http://localhost:${port} **\n`)
