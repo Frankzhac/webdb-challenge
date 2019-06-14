@@ -40,6 +40,24 @@ server.get('/projects/:id', async (req, res) => {
   }
 });
 
+// create projects
+server.post('/projects', (req, res) => {
+  const newProject = req.body;
+
+  db('projects')
+    .insert(newProject)
+    .then(ids => {
+      res.status(201).json(ids);
+    })
+    .catch(err => {
+      // console.log(err);
+      res.status(500).json({
+        success: false,
+        error: "There was an error while saving the project to the database",
+      });
+    });
+});
+
 const port = process.env.PORT || 5000;
 server.listen(port, () =>
   console.log(`\n** API running on http://localhost:${port} **\n`)
